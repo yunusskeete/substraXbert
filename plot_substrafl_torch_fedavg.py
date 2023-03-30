@@ -204,11 +204,11 @@ def accuracy(datasamples, predictions_path):
     outputs = np.load(predictions_path)
     labels = datasamples["labels"]
 
-    _, preds = np.argmax(outputs, dim=1)
+    preds = np.argmax(outputs, axis=1)
 
     # I don't think we need to one-hot encode labels AT ALL
 
-    _, targets = np.argmax(labels, dim=1)
+    targets = np.argmax(labels, axis=1)
     correct = preds == targets
     acc = sum(correct) / len(correct)
     
