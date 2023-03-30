@@ -196,7 +196,7 @@ permissions_metric = Permissions(
 
 # The Dependency object is instantiated in order to install the right libraries in
 # the Python environment of each organization.
-metric_deps = Dependency(pypi_dependencies=["numpy==1.23.5", "torch==2.0.0"])
+metric_deps = Dependency(pypi_dependencies=["numpy==1.23.5"])
 
 
 def accuracy(datasamples, predictions_path):
@@ -204,11 +204,11 @@ def accuracy(datasamples, predictions_path):
     outputs = np.load(predictions_path)
     labels = datasamples["labels"]
 
-    _, preds = torch.max(outputs, dim=1)
+    _, preds = np.argmax(outputs, dim=1)
 
     # I don't think we need to one-hot encode labels AT ALL
 
-    _, targets = torch.max(labels, dim=1)
+    _, targets = np.argmax(labels, dim=1)
     correct = preds == targets
     acc = sum(correct) / len(correct)
     

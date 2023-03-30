@@ -1,1 +1,4 @@
 venv/
+local-worker/
+tmp/
+torch_fedavg_assets/dataset/__pycache__/
