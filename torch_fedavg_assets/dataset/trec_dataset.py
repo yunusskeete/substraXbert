@@ -26,10 +26,14 @@ def setup_trec(data_path, N_CLIENTS):
 
     # initialize arrays to be used
     train_labels = np.zeros(
-        (len(trec_train), max(trec_train['coarse_label'])+1)
+        (len(trec_train),
+         max(trec_train['coarse_label'])+1),
+         dtype="float32"
     )
     test_labels = np.zeros(
-        (len(trec_test), max(trec_test['coarse_label'])+1)
+        (len(trec_test),
+         max(trec_test['coarse_label'])+1),
+         dtype="float32"
     )
     # one-hot encode
     train_labels[np.arange(len(trec_train)), trec_train['coarse_label']] = 1

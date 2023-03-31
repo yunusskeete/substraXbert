@@ -258,10 +258,11 @@ from transformers import BertForSequenceClassification, BertConfig
 
 config = BertConfig.from_pretrained('bert-base-uncased')
 config.num_labels = max(trec['coarse_label'])+1
-model = BertForSequenceClassification(config)#.to(device)
+model = BertForSequenceClassification(config)
 
-# # activate training mode of model
-# model.train()
+# Freeze all BERT layer parameters. Leaving fine-tuning to just to final few classification layers.
+for param in model.bert.parameters():
+    param.requires_grad = False
 
 # initialize adam optimizer with weight decay
 optimizer = AdamW(model.parameters(), lr=5e-5)
@@ -653,3 +654,6 @@ download_algo_files(
 model = load_algo(input_folder=algo_files_folder).model
 
 print(model)
+
+
+# Change the loss
